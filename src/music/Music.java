@@ -32,7 +32,7 @@ public class Music {
     }
     public void play() {
         numberOfStream++;
-        System.out.println(title+" by "+singer.username);
+        System.out.println(title+" by "+ singer.getUsername());
     }
     public static List<Music> search(String title) {
         List<Music> result = new ArrayList<>();
