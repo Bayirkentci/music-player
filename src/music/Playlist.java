@@ -29,34 +29,38 @@ public class Playlist {
         this.playlist = new ArrayList<>();
     }
 
-    void editTitle(String newTitle, String password) {
+    public void editTitle(String newTitle, String password) {
         if (!owner.checkPassword(password)) {
             throw new InvalidOperationException("Unauthorized access to edit playlist");
         }
         this.title = newTitle;
     }
 
-    void addMusic(Music music, String password) {
+    public void addMusic(Music music, String password) {
         if (!owner.checkPassword(password)) {
-            if (playlist.contains(music)) {
-                throw new InvalidOperationException("This track already exists in your playlist");
-            }
-            playlist.add(music);
+            throw new InvalidOperationException("Unauthorized access to edit playlist");
         }
-        throw new InvalidOperationException("Unauthorized access to edit playlist");
+
+        if (playlist.contains(music)) {
+            throw new InvalidOperationException("This track already exists in your playlist");
+        }
+
+        playlist.add(music);
     }
 
-    void removeMusic(Music music, String password) {
+    public void removeMusic(Music music, String password) {
         if (!owner.checkPassword(password)) {
-            if (!(playlist.contains(music))) {
-                throw new InvalidOperationException("This track does not exist in your playlist");
-            }
-            playlist.remove(music);
+            throw new InvalidOperationException("Unauthorized access to edit playlist");
         }
-        throw new InvalidOperationException("Unauthorized access to edit playlist");
+
+        if (!playlist.contains(music)) {
+            throw new InvalidOperationException("This track does not exist in your playlist");
+        }
+
+        playlist.remove(music);
     }
 
-    Music searchInPlaylist(Music music) {
+    public Music searchInPlaylist(Music music) {
         for (Music m : playlist) {
             if (m.equals(music)) {
                 return music;
@@ -65,7 +69,7 @@ public class Playlist {
         throw new InvalidOperationException("This music doesn't exist in your playlist");
     }
 
-    void playPlaylist() {
+    public void playPlaylist() {
         for (Music music : playlist) {
             music.play();
         }

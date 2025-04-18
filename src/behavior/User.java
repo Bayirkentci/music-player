@@ -44,7 +44,7 @@ public class User {
         this.behavior = behavior;
     }
 
-    void follow (User user) {
+    public void follow(User user) {
         if (!(this.followingList.contains(user))) {
             this.followingList.add(user);
             user.followerList.add(this);
@@ -67,15 +67,19 @@ public class User {
         return followerList.size();
     }
 
-    void createPlaylist (String Title, User Owner){
+    public void createPlaylist(String Title, User Owner){
         this.behavior.createPlaylist(Title, Owner);
     }
 
-    void playMusic (Music music) {
+    public void playMusic(Music music) {
         this.behavior.playMusic(music);
     }
 
-    void buyPremium (User owner, int month) {
+    public void buyPremium(User owner, int month) {
         this.behavior.buyPremium(owner, month);
+    }
+
+    public void addPlaylist(Playlist playlist) {
+        this.playlists.add(playlist);
     }
 }
