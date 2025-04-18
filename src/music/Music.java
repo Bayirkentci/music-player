@@ -27,10 +27,6 @@ public class Music {
                 result.add(music);
             }
         }
-
-
-
-        
         return result;
     }
 }
