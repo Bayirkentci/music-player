@@ -63,6 +63,10 @@ public class User {
         }
     }
 
+    public int getFollowerCount() {
+        return followerList.size();
+    }
+
     void createPlaylist (String Title, User Owner){
         this.behavior.createPlaylist(Title, Owner);
     }
