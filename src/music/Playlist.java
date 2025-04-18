@@ -19,9 +19,10 @@ public class Playlist {
     }
 
     void editTitle(String newTitle, String password) {
-        if (owner.password.equals(password)) {
-            this.title = newTitle;
-        } throw new InvalidOperationException("Unauthorized access to edit playlist");
+        if (!owner.password.equals(password)) {
+            throw new InvalidOperationException("Unauthorized access to edit playlist");
+        }
+        this.title = newTitle;
     }
     void addMusic(Music music, String password) {
         if (owner.password.equals(password)) {
