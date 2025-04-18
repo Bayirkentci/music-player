@@ -44,4 +44,13 @@ public class Music {
         return result;
     }
 
+    public static Music search(String title, User singer) {
+        for (Music music : allMusic) {
+            if (music.title.equals(title) && music.singer.equals(singer)) {
+                return music;
+            }
+        }
+        return null;
+    }
+
 }
