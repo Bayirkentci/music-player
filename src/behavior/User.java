@@ -6,14 +6,24 @@ import music.*;
 import java.util.ArrayList;
 
 public class User {
-    public String username;
-    public String password;
-    UserBehavior behavior;
+    private String username;
+    private String password;
+    private UserBehavior behavior;
 
-    ArrayList<User> followerList = new ArrayList<>();
-    ArrayList<User> followingList = new ArrayList<>();
-    ArrayList<Playlist> playlists = new ArrayList<>();
-    static ArrayList<User> allUsers = new ArrayList<>(); //validation
+    private ArrayList<User> followerList = new ArrayList<>();
+    private ArrayList<User> followingList = new ArrayList<>();
+    private ArrayList<Playlist> playlists = new ArrayList<>();
+    private static ArrayList<User> allUsers = new ArrayList<>(); //validation
+
+    public String getUsername() {
+        return username;
+    }
+    public boolean checkPassword(String pass) {
+        return this.password.equals(pass);
+    }
+    public ArrayList<Playlist> getPlaylists() {
+        return new ArrayList<>(playlists);
+    }
 
     public User(String username, String password) {
         if (password.isEmpty()) {

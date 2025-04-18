@@ -4,7 +4,8 @@ import music.Music;
 import music.Playlist;
 
 public class PremiumBehavior implements UserBehavior {
-    int month;
+    private int month;
+    public int getMonth() { return month; }
 
     public PremiumBehavior(int month) {
         this.month = month;
@@ -13,7 +14,7 @@ public class PremiumBehavior implements UserBehavior {
     @Override
     public void createPlaylist(String title, User owner) {
         Playlist playlist = new Playlist(title, owner);
-        owner.playlists.add(playlist);
+        owner.getPlaylists().add(playlist);
     }
 
     @Override

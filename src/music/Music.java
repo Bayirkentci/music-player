@@ -11,6 +11,20 @@ public class Music {
     private int numberOfStream = 0;
     private static ArrayList<Music> allMusic = new ArrayList<>();
 
+
+    public String getTitle() {
+        return title;
+    }
+    public User getSinger() {
+        return singer;
+    }
+    public int getNumberOfStream() {
+        return numberOfStream;
+    }
+    public static List<Music> getAllMusic() {
+        return new ArrayList<>(allMusic);
+    }
+
     public Music(String title, User singer) {
         this.title = title;
         this.singer = singer;
@@ -29,4 +43,5 @@ public class Music {
         }
         return result;
     }
+
 }
