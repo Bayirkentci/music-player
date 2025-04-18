@@ -1,0 +1,36 @@
+package music;
+
+import behavior.User;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Music {
+    private String title;
+    private User singer;
+    private int numberOfStream = 0;
+    private static ArrayList<Music> allMusic = new ArrayList<>();
+
+    public Music(String title, User singer) {
+        this.title = title;
+        this.singer = singer;
+        allMusic.add(this);
+    }
+    public void play() {
+        numberOfStream++;
+        System.out.println(title+" by "+singer.username);
+    }
+    public static List<Music> search(String title) {
+        List<Music> result = new ArrayList<>();
+        for (Music music : allMusic) {
+            if (music.title.equals(title)) {
+                result.add(music);
+            }
+        }
+
+
+
+        
+        return result;
+    }
+}
