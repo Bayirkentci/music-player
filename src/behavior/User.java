@@ -6,14 +6,24 @@ import music.*;
 import java.util.ArrayList;
 
 public class User {
-    public String username;
-    public String password;
-    UserBehavior behavior;
+    private String username;
+    private String password;
+    private UserBehavior behavior;
 
-    ArrayList<User> followerList = new ArrayList<>();
-    ArrayList<User> followingList = new ArrayList<>();
-    ArrayList<Playlist> playlists = new ArrayList<>();
-    static ArrayList<User> allUsers = new ArrayList<>(); //validation
+    private ArrayList<User> followerList = new ArrayList<>();
+    private ArrayList<User> followingList = new ArrayList<>();
+    private ArrayList<Playlist> playlists = new ArrayList<>();
+    private static ArrayList<User> allUsers = new ArrayList<>(); //validation
+
+    public String getUsername() {
+        return username;
+    }
+    public boolean checkPassword(String pass) {
+        return this.password.equals(pass);
+    }
+    public ArrayList<Playlist> getPlaylists() {
+        return new ArrayList<>(playlists);
+    }
 
     public User(String username, String password) {
         if (password.isEmpty()) {
@@ -34,7 +44,7 @@ public class User {
         this.behavior = behavior;
     }
 
-    void follow (User user) {
+    public void follow(User user) {
         if (!(this.followingList.contains(user))) {
             this.followingList.add(user);
             user.followerList.add(this);
@@ -44,16 +54,32 @@ public class User {
         }
     }
 
+    public void unfollow(User user) {
+        if (this.followingList.contains(user)) {
+            this.followingList.remove(user);
+            user.followerList.remove(this);
+        } else {
+            throw new InvalidOperationException("You are not following this user");
+        }
+    }
 
-    void createPlaylist (String Title, User Owner){
+    public int getFollowerCount() {
+        return followerList.size();
+    }
+
+    public void createPlaylist(String Title, User Owner){
         this.behavior.createPlaylist(Title, Owner);
     }
 
-    void playMusic (Music music) {
+    public void playMusic(Music music) {
         this.behavior.playMusic(music);
     }
 
-    void buyPremium (User owner, int month) {
+    public void buyPremium(User owner, int month) {
         this.behavior.buyPremium(owner, month);
+    }
+
+    public void addPlaylist(Playlist playlist) {
+        this.playlists.add(playlist);
     }
 }

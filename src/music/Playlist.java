@@ -7,10 +7,21 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Playlist {
-    String title;
-    User owner;
+    private String title;
+    private User owner;
+    private ArrayList<Music> playlist;
 
-    ArrayList<Music> playlist;
+    public String getTitle() {
+        return title;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public ArrayList<Music> getPlaylist() {
+        return new ArrayList<>(playlist);
+    }
 
     public Playlist(String title, User owner) {
         this.title = title;
@@ -18,28 +29,38 @@ public class Playlist {
         this.playlist = new ArrayList<>();
     }
 
-    void editTitle(String newTitle, String password) {
-        if (owner.password.equals(password)) {
-            this.title = newTitle;
-        } throw new InvalidOperationException("Unauthorized access to edit playlist");
+    public void editTitle(String newTitle, String password) {
+        if (!owner.checkPassword(password)) {
+            throw new InvalidOperationException("Unauthorized access to edit playlist");
+        }
+        this.title = newTitle;
     }
-    void addMusic(Music music, String password) {
-        if (owner.password.equals(password)) {
-            if (playlist.contains(music)) {
-                throw new InvalidOperationException("This track already exists in your playlist");
-            }
-            playlist.add(music);
-        } throw new InvalidOperationException("Unauthorized access to edit playlist");
+
+    public void addMusic(Music music, String password) {
+        if (!owner.checkPassword(password)) {
+            throw new InvalidOperationException("Unauthorized access to edit playlist");
+        }
+
+        if (playlist.contains(music)) {
+            throw new InvalidOperationException("This track already exists in your playlist");
+        }
+
+        playlist.add(music);
     }
-    void removeMusic(Music music, String password) {
-        if (owner.password.equals(password)) {
-            if (!(playlist.contains(music))) {
-                throw new InvalidOperationException("This track does not exist in your playlist");
-            }
-            playlist.remove(music);
-        } throw new InvalidOperationException("Unauthorized access to edit playlist");
+
+    public void removeMusic(Music music, String password) {
+        if (!owner.checkPassword(password)) {
+            throw new InvalidOperationException("Unauthorized access to edit playlist");
+        }
+
+        if (!playlist.contains(music)) {
+            throw new InvalidOperationException("This track does not exist in your playlist");
+        }
+
+        playlist.remove(music);
     }
-    Music searchInPlaylist(Music music) {
+
+    public Music searchInPlaylist(Music music) {
         for (Music m : playlist) {
             if (m.equals(music)) {
                 return music;
@@ -47,11 +68,13 @@ public class Playlist {
         }
         throw new InvalidOperationException("This music doesn't exist in your playlist");
     }
-    void playPlaylist() {
+
+    public void playPlaylist() {
         for (Music music : playlist) {
             music.play();
         }
     }
+
     void shuffle() {
         ArrayList<Music> shuffled = new ArrayList<>(playlist);
         Collections.shuffle(shuffled);
@@ -60,4 +83,6 @@ public class Playlist {
             music.play();
         }
     }
+
+
 }
