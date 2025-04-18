@@ -54,6 +54,14 @@ public class User {
         }
     }
 
+    public void unfollow(User user) {
+        if (this.followingList.contains(user)) {
+            this.followingList.remove(user);
+            user.followerList.remove(this);
+        } else {
+            throw new InvalidOperationException("You are not following this user");
+        }
+    }
 
     void createPlaylist (String Title, User Owner){
         this.behavior.createPlaylist(Title, Owner);
